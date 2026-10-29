@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VIT AutoFill & AutoLogin</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header class="header">
+      <div class="logo-group">
+        <div class="logo-icon">⚡</div>
+        <div>
+          <h1>VIT AutoFill</h1>
+          <p class="subtitle">VTOP Login &amp; DA Due Tracker</p>
+        </div>
+      </div>
+      <span class="badge active-badge">Ready</span>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="vtop-tab">VTOP</button>
+      <button class="tab-btn" data-tab="da-tab" id="daTabBtn">Assignments</button>
+      <button class="tab-btn" data-tab="wifi-tab">Wi-Fi</button>
+      <button class="tab-btn" data-tab="about-tab">Info</button>
+    </div>
+
+    <!-- VTOP Tab Content -->
+    <div class="tab-content active" id="vtop-tab">
+      <div class="form-group">
+        <label for="vtopUsername">Student Reg. Number / Username</label>
+        <div class="input-wrapper">
+          <input type="text" id="vtopUsername" placeholder="e.g. 23BCE1000" autocomplete="off" />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="vtopPassword">VTOP Password</label>
+        <div class="input-wrapper">
+          <input type="password" id="vtopPassword" placeholder="Enter VTOP Password" autocomplete="off" />
+          <button type="button" class="toggle-password" data-target="vtopPassword" title="Show/Hide Password">👁</button>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="toggle-group">
+        <label class="switch-label">
+          <input type="checkbox" id="autoSelectStudent" checked />
+          <span class="slider"></span>
+          <span class="label-text">
+            <strong>Auto-choose "Student"</strong>
+            <small>Clicks Student on landing page</small>
+          </span>
+        </label>
+      </div>
+
+      <div class="toggle-group">
+        <label class="switch-label">
+          <input type="checkbox" id="autoSolveCaptcha" checked />
+          <span class="slider"></span>
+          <span class="label-text">
+            <strong>Auto-solve Captcha (AI)</strong>
+            <small>Solves captcha offline in &lt;1 second</small>
+          </span>
+        </label>
+      </div>
+
+      <div class="toggle-group">
+        <label class="switch-label">
+          <input type="checkbox" id="autoSubmitVtop" checked />
+          <span class="slider"></span>
+          <span class="label-text">
+            <strong>Auto-submit VTOP Login</strong>
+            <small>Automatically clicks submit to take you inside</small>
+          </span>
+        </label>
+      </div>
+
+      <div class="toggle-group">
+        <label class="switch-label">
+          <input type="checkbox" id="autoFocusCaptcha" checked />
+          <span class="slider"></span>
+          <span class="label-text">
+            <strong>Fallback Manual Focus</strong>
+            <small>Highlights captcha box if manual entry needed</small>
+          </span>
+        </label>
+      </div>
+
+      <div class="quick-links">
+        <a href="https://vtop.vit.ac.in/vtop/" target="_blank" class="link-btn">🔗 Open VTOP</a>
+      </div>
+    </div>
+
+    <!-- Digital Assignments Tab Content -->
+    <div class="tab-content" id="da-tab">
+      <div class="da-header-box">
+        <div class="da-header-title">
+          <span class="da-icon">📋</span>
+          <div>
+            <strong>Digital Assignments</strong>
+            <small id="daLastUpdated">Real-time sync from VTOP</small>
+          </div>
+        </div>
+        <a href="https://vtop.vit.ac.in/vtop/#" target="_blank" class="da-open-link" title="Open Digital Assignments in VTOP">Open VTOP ↗</a>
+      </div>
+
+      <div id="daListContainer" class="da-list-container">
+        <!-- Rendered via popup.js -->
+        <div class="da-empty-state">
+          <span>⏳</span>
+          <p>Open <strong>Digital Assignment Upload</strong> in VTOP to sync your upcoming dues automatically.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Wi-Fi Tab Content -->
+    <div class="tab-content" id="wifi-tab">
+      <div class="form-group">
+        <label for="wifiUsername">Wi-Fi Username / ID</label>
+        <div class="input-wrapper">
+          <input type="text" id="wifiUsername" placeholder="e.g. 23BCE1000 or Wi-Fi ID" autocomplete="off" />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="wifiPassword">Wi-Fi Password</label>
+        <div class="input-wrapper">
+          <input type="password" id="wifiPassword" placeholder="Enter Wi-Fi Password" autocomplete="off" />
+          <button type="button" class="toggle-password" data-target="wifiPassword" title="Show/Hide Password">👁</button>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="toggle-group">
+        <label class="switch-label">
+          <input type="checkbox" id="autoSubmitWifi" checked />
+          <span class="slider"></span>
+          <span class="label-text">
+            <strong>Auto-submit Wi-Fi Login</strong>
+            <small>Automatically logs in instantly</small>
+          </span>
+        </label>
+      </div>
+
+      <div class="quick-links">
+        <a href="http://phc.prontonetworks.com/cgi-bin/authlogin" target="_blank" class="link-btn">🔗 Open Wi-Fi Portal</a>
+      </div>
+    </div>
+
+    <!-- About Tab Content -->
+    <div class="tab-content" id="about-tab">
+      <div class="info-card">
+        <h3>🔒 100% Client-Side Privacy</h3>
+        <p>Your credentials and the captcha solver neural network operate 100% locally in your browser. No data or image ever leaves your computer.</p>
+      </div>
+      <div class="info-card">
+        <h3>📋 Smart DA Due Tracker</h3>
+        <p>Enhances VTOP's Assignment Upload table with real-time countdown badges, pending submission highlights, and deadline sorting.</p>
+      </div>
+      <div class="info-card">
+        <h3>📊 Examinations Marks Aggregate</h3>
+        <p>In Examinations &gt; Marks, automatically computes your total Weightage Marks, Max Marks, Raw Scored Marks, and effective grade percentages both inside the table and in a clean summary below each subject.</p>
+      </div>
+      <div class="info-card">
+        <h3>🚀 Completely Automated VTOP</h3>
+        <p>1. Clicks <strong>Student</strong> on the landing page.<br>
+        2. Autofills Username &amp; Password.<br>
+        3. Solves the 6-character captcha using the embedded neural network.<br>
+        4. Submits the form automatically to take you inside VTOP!</p>
+      </div>
+    </div>
+
+    <!-- Footer Save Actions -->
+    <footer class="footer">
+      <button id="saveBtn" class="primary-btn">Save Settings</button>
+      <div id="saveStatus" class="save-status"></div>
+    </footer>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+{
+  "manifest_version": 3,
+  "name": "VIT Vellore AutoFill & AutoLogin",
+  "version": "1.3.0",
+  "description": "Auto-fills credentials, solves VTOP captchas offline with an embedded neural network, tracks upcoming digital assignment due dates, and auto-logs into VIT Wi-Fi and VTOP.",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "permissions": [
+    "storage"
+  ],
+  "host_permissions": [
+    "*://*.vit.ac.in/*",
+    "*://*.vitap.ac.in/*",
+    "*://*.vitbhopal.ac.in/*",
+    "*://phc.prontonetworks.com/*",
+    "http://172.18.10.10/*",
+    "http://172.18.10.1/*",
+    "http://172.16.10.10/*",
+    "http://172.16.10.1/*",
+    "http://10.0.0.1/*",
+    "http://10.1.0.1/*"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    },
+    "default_title": "VIT AutoFill Settings"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "*://*.vit.ac.in/*",
+        "*://*.vitap.ac.in/*",
+        "*://*.vitbhopal.ac.in/*"
+      ],
+      "js": ["vtop-solver.js", "content-vtop.js", "content-da.js", "content-marks.js"],
+      "css": ["content.css"],
+      "run_at": "document_start"
+    },
+    {
+      "matches": [
+        "*://phc.prontonetworks.com/*",
+        "http://172.18.10.10/*",
+        "http://172.18.10.1/*",
+        "http://172.16.10.10/*",
+        "http://172.16.10.1/*",
+        "http://10.0.0.1/*",
+        "http://10.1.0.1/*"
+      ],
+      "js": ["content-wifi.js"],
+      "css": ["content.css"],
+      "run_at": "document_start"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "vtop_weights_int8.bin"
+      ],
+      "matches": [
+        "*://*.vit.ac.in/*",
+        "*://*.vitap.ac.in/*",
+        "*://*.vitbhopal.ac.in/*"
+      ]
+    }
+  ]
+}
